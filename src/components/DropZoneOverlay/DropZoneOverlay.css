@@ -1,0 +1,39 @@
+.dropzone-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 105, 218, 0.08);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+  animation: dropzone-fade-in 0.15s ease-out;
+}
+
+@keyframes dropzone-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 64px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px dashed #0969da;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.dropzone-content svg {
+  color: #0969da;
+}
+
+.dropzone-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #0969da;
+}

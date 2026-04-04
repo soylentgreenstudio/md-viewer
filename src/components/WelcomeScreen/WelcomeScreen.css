@@ -1,0 +1,127 @@
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #ffffff;
+  padding: 32px;
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.welcome-logo {
+  color: #0969da;
+  margin-bottom: 16px;
+}
+
+.welcome-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2328;
+  margin: 0 0 4px;
+}
+
+.welcome-subtitle {
+  font-size: 14px;
+  color: #656d76;
+  margin: 0 0 32px;
+}
+
+.welcome-open-btn {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #0969da;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.welcome-open-btn:hover {
+  background: #0860ca;
+}
+
+.welcome-open-btn:active {
+  background: #0550ae;
+}
+
+.welcome-hint {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #8b949e;
+}
+
+.welcome-recent {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.welcome-recent-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #656d76;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+.welcome-recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.welcome-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s;
+}
+
+.welcome-recent-item:hover {
+  background: #f6f8fa;
+}
+
+.welcome-recent-item svg {
+  flex-shrink: 0;
+  color: #656d76;
+}
+
+.welcome-recent-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.welcome-recent-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2328;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.welcome-recent-path {
+  font-size: 12px;
+  color: #8b949e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
