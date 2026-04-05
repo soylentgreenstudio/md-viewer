@@ -13,7 +13,11 @@ export function Layout() {
       <Toolbar />
       <div className="layout-body">
         <Sidebar />
-        <main className="layout-content" id="markdown-content">
+        <main
+          className="layout-content"
+          id="markdown-content"
+          style={state.fontSize !== 16 ? { fontSize: `${state.fontSize}px` } : undefined}
+        >
           {state.content && state.filePath && (
             <MarkdownViewer content={state.content} filePath={state.filePath} />
           )}

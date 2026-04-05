@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -11,7 +12,7 @@ interface MarkdownViewerProps {
   filePath: string;
 }
 
-export function MarkdownViewer({ content, filePath }: MarkdownViewerProps) {
+export const MarkdownViewer = memo(function MarkdownViewer({ content, filePath }: MarkdownViewerProps) {
   // Get the directory of the current .md file for resolving relative image paths
   const fileDir = filePath.replace(/[/\\][^/\\]+$/, '');
 
@@ -54,4 +55,4 @@ export function MarkdownViewer({ content, filePath }: MarkdownViewerProps) {
       </div>
     </div>
   );
-}
+});

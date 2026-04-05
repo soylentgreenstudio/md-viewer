@@ -1,11 +1,13 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { useAppContext } from '../contexts/AppContext';
+import { useDebouncedValue } from './useDebouncedValue';
 
 export function useDocumentSearch() {
   const { state, dispatch } = useAppContext();
   const [matchCount, setMatchCount] = useState(0);
   const [currentMatch, setCurrentMatch] = useState(0);
   const highlightsRef = useRef<HTMLElement[]>([]);
+  const debouncedQuery = useDebouncedValue(state.searchQuery, 150);
 
   // Clear all highlights, restoring original text nodes
   const clearHighlights = useCallback(() => {
@@ -45,12 +47,12 @@ export function useDocumentSearch() {
 
   // Perform search when query or visibility changes
   useEffect(() => {
-    if (!state.searchVisible || !state.searchQuery) {
+    if (!state.searchVisible || !debouncedQuery) {
       clearHighlights();
       return;
     }
 
-    const query = state.searchQuery.toLowerCase();
+    const query = debouncedQuery.toLowerCase();
     if (query.length < 2) {
       clearHighlights();
       return;
@@ -69,14 +71,14 @@ export function useDocumentSearch() {
       NodeFilter.SHOW_TEXT,
       {
         acceptNode: (node) => {
-          const parent = node.parentElement;
-          if (
-            parent &&
-            (parent.tagName === 'CODE' ||
-              parent.tagName === 'PRE' ||
-              parent.tagName === 'MARK')
-          ) {
-            return NodeFilter.FILTER_SKIP;
+          let ancestor = node.parentElement;
+          while (ancestor) {
+            const tag = ancestor.tagName;
+            if (tag === 'CODE' || tag === 'PRE' || tag === 'MARK') {
+              return NodeFilter.FILTER_REJECT;
+            }
+            if (ancestor.classList.contains('markdown-body')) break;
+            ancestor = ancestor.parentElement;
           }
           return NodeFilter.FILTER_ACCEPT;
         },
@@ -154,7 +156,7 @@ export function useDocumentSearch() {
     return () => {
       clearHighlights();
     };
-  }, [state.searchQuery, state.searchVisible, state.content, clearHighlights]);
+  }, [debouncedQuery, state.searchVisible, state.content, clearHighlights]);
 
   // Navigate to next match
   const goToNext = useCallback(() => {

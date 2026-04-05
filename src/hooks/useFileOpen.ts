@@ -33,7 +33,7 @@ export function useFileOpen() {
     });
 
     return () => {
-      unlisten.then(fn => fn());
+      unlisten.then(fn => fn()).catch(() => {});
     };
   }, [openFile]);
 }

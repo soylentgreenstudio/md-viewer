@@ -1,19 +1,34 @@
 import { useEffect, useCallback } from 'react';
-import { load } from '@tauri-apps/plugin-store';
+import { exists } from '@tauri-apps/plugin-fs';
 import { useAppContext } from '../contexts/AppContext';
-import { MAX_RECENT_FILES, STORE_FILE, STORE_KEY_RECENT } from '../lib/constants';
+import { MAX_RECENT_FILES, STORE_KEY_RECENT } from '../lib/constants';
+import { getStore } from '../lib/store';
 
 export function useRecentFiles() {
   const { state, dispatch } = useAppContext();
 
-  // Load recent files from store on mount
   useEffect(() => {
     const loadRecentFiles = async () => {
       try {
-        const store = await load(STORE_FILE, { defaults: {}, autoSave: true });
+        const store = await getStore();
         const files = await store.get<string[]>(STORE_KEY_RECENT);
         if (files && Array.isArray(files)) {
-          dispatch({ type: 'SET_RECENT_FILES', payload: files });
+          // Filter out files that no longer exist on disk
+          const checks = await Promise.all(
+            files.map(async (f) => ({
+              path: f,
+              exists: await exists(f).catch(() => false),
+            }))
+          );
+          const validFiles = checks.filter((c) => c.exists).map((c) => c.path);
+
+          // Update store if stale files were removed
+          if (validFiles.length < files.length) {
+            await store.set(STORE_KEY_RECENT, validFiles);
+            await store.save();
+          }
+
+          dispatch({ type: 'SET_RECENT_FILES', payload: validFiles });
         }
       } catch (err) {
         console.error('Failed to load recent files:', err);
@@ -22,17 +37,14 @@ export function useRecentFiles() {
     loadRecentFiles();
   }, [dispatch]);
 
-  // Add a file to the recent files list, deduplicating and trimming to max length
   const addRecentFile = useCallback(async (filePath: string) => {
     try {
-      const store = await load(STORE_FILE, { defaults: {}, autoSave: true });
+      const store = await getStore();
       let files = await store.get<string[]>(STORE_KEY_RECENT) || [];
 
-      // Remove existing entry for this path, then prepend
       files = files.filter(f => f !== filePath);
       files.unshift(filePath);
 
-      // Trim to max allowed length
       if (files.length > MAX_RECENT_FILES) {
         files = files.slice(0, MAX_RECENT_FILES);
       }

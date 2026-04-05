@@ -1,5 +1,6 @@
 import GithubSlugger from 'github-slugger';
 import { Heading } from '../types';
+import { SUPPORTED_EXTENSIONS } from './constants';
 
 export function extractHeadings(markdown: string): Heading[] {
   const headings: Heading[] = [];
@@ -9,7 +10,8 @@ export function extractHeadings(markdown: string): Heading[] {
 
   for (const line of lines) {
     // Track code blocks to skip headings inside them
-    if (line.trim().startsWith('```')) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('```') || trimmed.startsWith('~~~')) {
       inCodeBlock = !inCodeBlock;
       continue;
     }
@@ -23,6 +25,7 @@ export function extractHeadings(markdown: string): Heading[] {
         .replace(/\*(.+?)\*/g, '$1')        // italic
         .replace(/`(.+?)`/g, '$1')          // inline code
         .replace(/\[(.+?)\]\(.*?\)/g, '$1') // links
+        .replace(/~~(.+?)~~/g, '$1')    // strikethrough
         .trim();
 
       headings.push({
@@ -43,5 +46,5 @@ export function getFileName(filePath: string): string {
 
 export function isMarkdownFile(path: string): boolean {
   const lower = path.toLowerCase();
-  return lower.endsWith('.md') || lower.endsWith('.markdown');
+  return SUPPORTED_EXTENSIONS.some(ext => lower.endsWith(ext));
 }

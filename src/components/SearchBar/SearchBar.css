@@ -5,8 +5,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #ffffff;
-  border: 1px solid #d1d9e0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 6px 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -34,26 +34,26 @@
 
 .search-icon {
   flex-shrink: 0;
-  color: #8b949e;
+  color: var(--color-text-muted);
 }
 
 .search-input {
   border: none;
   outline: none;
   font-size: 14px;
-  color: #1f2328;
+  color: var(--color-text);
   background: transparent;
   width: 220px;
   font-family: inherit;
 }
 
 .search-input::placeholder {
-  color: #8b949e;
+  color: var(--color-text-muted);
 }
 
 .search-count {
   font-size: 12px;
-  color: #656d76;
+  color: var(--color-text-secondary);
   white-space: nowrap;
   flex-shrink: 0;
   padding: 0 4px;
@@ -65,7 +65,7 @@
   gap: 2px;
   margin-left: 4px;
   padding-left: 8px;
-  border-left: 1px solid #e2e5e9;
+  border-left: 1px solid var(--color-bg-hover);
 }
 
 .search-nav-btn {
@@ -77,14 +77,14 @@
   border: none;
   background: transparent;
   border-radius: 6px;
-  color: #656d76;
+  color: var(--color-text-secondary);
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
 }
 
 .search-nav-btn:hover:not(:disabled) {
-  background: #e2e5e9;
-  color: #1f2328;
+  background: var(--color-bg-hover);
+  color: var(--color-text);
 }
 
 .search-nav-btn:disabled {
@@ -93,20 +93,20 @@
 }
 
 .search-close-btn:hover:not(:disabled) {
-  background: #ffebe9;
-  color: #cf222e;
+  background: var(--color-error-bg);
+  color: var(--color-error);
 }
 
 /* Highlight styles injected into .markdown-body via DOM manipulation */
 mark.search-highlight {
-  background: #fff3b0;
+  background: var(--color-search-highlight);
   color: inherit;
   border-radius: 2px;
   padding: 0 1px;
 }
 
 mark.search-highlight-active {
-  background: #ff9f43;
+  background: var(--color-search-active);
   color: inherit;
   border-radius: 2px;
   padding: 0 1px;

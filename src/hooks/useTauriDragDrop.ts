@@ -35,9 +35,9 @@ export function useTauriDragDrop() {
     });
 
     return () => {
-      unlistenDrop.then(fn => fn());
-      unlistenEnter.then(fn => fn());
-      unlistenLeave.then(fn => fn());
+      unlistenDrop.then(fn => fn()).catch(() => {});
+      unlistenEnter.then(fn => fn()).catch(() => {});
+      unlistenLeave.then(fn => fn()).catch(() => {});
     };
   }, [dispatch, openFile]);
 }

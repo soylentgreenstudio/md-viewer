@@ -16,6 +16,51 @@
   --color-border: #d1d9e0;
   --color-accent: #0969da;
   --color-accent-hover: #0860ca;
+  --color-bg-hover: #e2e5e9;
+  --color-bg-active: #d1d5da;
+  --color-error: #cf222e;
+  --color-error-bg: #ffebe9;
+  --color-error-border: #ffc1ba;
+  --color-search-highlight: #fff3b0;
+  --color-search-active: #ff9f43;
+  --color-toc-active-bg: #ddf4ff;
+  --color-scrollbar: #c1c8d0;
+  --color-scrollbar-hover: #9ba3ad;
+  --color-text-on-accent: #ffffff;
+}
+
+[data-theme="dark"] {
+  --color-text: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-bg: #0d1117;
+  --color-bg-secondary: #161b22;
+  --color-border: #30363d;
+  --color-accent: #58a6ff;
+  --color-accent-hover: #79b8ff;
+  --color-bg-hover: #21262d;
+  --color-bg-active: #30363d;
+  --color-error: #f85149;
+  --color-error-bg: #3d1f28;
+  --color-error-border: #6e3630;
+  --color-search-highlight: #5c4b00;
+  --color-search-active: #9e6a03;
+  --color-toc-active-bg: #0c2d6b;
+  --color-scrollbar: #484f58;
+  --color-scrollbar-hover: #6e7681;
+  --color-text-on-accent: #ffffff;
+}
+
+[data-theme="dark"] .markdown-body code {
+  background-color: rgba(110, 118, 129, 0.4);
+}
+
+[data-theme="dark"] .loading-overlay {
+  background: rgba(13, 17, 23, 0.7);
+}
+
+[data-theme="dark"] .drop-zone-overlay {
+  background: rgba(13, 17, 23, 0.85);
 }
 
 html, body, #root {
@@ -62,11 +107,11 @@ body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: #ffebe9;
-  color: #cf222e;
+  background: var(--color-error-bg);
+  color: var(--color-error);
   padding: 12px 20px;
   border-radius: 8px;
-  border: 1px solid #ffc1ba;
+  border: 1px solid var(--color-error-border);
   font-size: 13px;
   z-index: 2000;
   max-width: 400px;
@@ -85,10 +130,44 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c8d0;
+  background: var(--color-scrollbar);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ba3ad;
+  background: var(--color-scrollbar-hover);
+}
+
+/* Print styles */
+@media print {
+  .toolbar,
+  .sidebar,
+  .search-bar,
+  .dropzone-overlay,
+  .loading-overlay,
+  .error-message {
+    display: none !important;
+  }
+
+  .layout {
+    display: block !important;
+  }
+
+  .layout-body {
+    display: block !important;
+  }
+
+  .layout-content {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .markdown-viewer {
+    padding: 0 !important;
+  }
+
+  .markdown-body {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
 }

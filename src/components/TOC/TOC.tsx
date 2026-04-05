@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Heading } from '../../types';
 import './TOC.css';
 
@@ -8,6 +8,45 @@ interface TOCProps {
 
 export function TOC({ headings }: TOCProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (headings.length === 0) return;
+
+    const scrollContainer = document.querySelector('.layout-content');
+    if (!scrollContainer) return;
+
+    const timer = setTimeout(() => {
+      observerRef.current?.disconnect();
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setActiveId(entry.target.id);
+            }
+          }
+        },
+        {
+          root: scrollContainer,
+          rootMargin: '-10% 0px -80% 0px',
+          threshold: 0,
+        }
+      );
+
+      headings.forEach((h) => {
+        const el = document.getElementById(h.id);
+        if (el) observer.observe(el);
+      });
+
+      observerRef.current = observer;
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      observerRef.current?.disconnect();
+    };
+  }, [headings]);
 
   if (headings.length === 0) {
     return (

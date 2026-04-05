@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { AppState, AppAction } from '../types';
 import { extractHeadings, getFileName } from '../lib/markdown';
 
-const initialState: AppState = {
+export const initialState: AppState = {
   filePath: null,
   fileName: null,
   content: null,
@@ -16,9 +16,10 @@ const initialState: AppState = {
   recentFiles: [],
   isDragOver: false,
   sidebarCollapsed: false,
+  fontSize: 16,
 };
 
-function appReducer(state: AppState, action: AppAction): AppState {
+export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'SET_LOADING':
       return { ...state, isLoading: true, error: null };
@@ -61,6 +62,12 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, isDragOver: action.payload };
     case 'TOGGLE_SIDEBAR':
       return { ...state, sidebarCollapsed: !state.sidebarCollapsed };
+    case 'ZOOM_IN':
+      return { ...state, fontSize: Math.min(state.fontSize + 2, 32) };
+    case 'ZOOM_OUT':
+      return { ...state, fontSize: Math.max(state.fontSize - 2, 10) };
+    case 'ZOOM_RESET':
+      return { ...state, fontSize: 16 };
     default:
       return state;
   }

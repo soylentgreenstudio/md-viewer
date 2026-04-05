@@ -11,7 +11,7 @@
   padding: 6px 12px;
   border: none;
   background: transparent;
-  color: #656d76;
+  color: var(--color-text-secondary);
   font-size: 13px;
   line-height: 1.4;
   cursor: pointer;
@@ -23,13 +23,13 @@
 }
 
 .toc-item:hover {
-  background: #e2e5e9;
-  color: #1f2328;
+  background: var(--color-bg-hover);
+  color: var(--color-text);
 }
 
 .toc-item.toc-active {
-  background: #ddf4ff;
-  color: #0969da;
+  background: var(--color-toc-active-bg);
+  color: var(--color-accent);
   font-weight: 500;
 }
 
@@ -43,7 +43,7 @@
 
 .toc-empty {
   padding: 16px 12px;
-  color: #8b949e;
+  color: var(--color-text-muted);
   font-size: 13px;
   font-style: italic;
 }

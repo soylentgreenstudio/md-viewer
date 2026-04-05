@@ -1,11 +1,23 @@
+use tauri::Manager;
+
 #[tauri::command]
-pub fn read_markdown_file(path: String) -> Result<String, String> {
+pub fn read_markdown_file(app: tauri::AppHandle, path: String) -> Result<String, String> {
     let file_path = std::path::Path::new(&path);
-    match file_path.extension().and_then(|e| e.to_str()) {
+
+    let canonical = file_path.canonicalize()
+        .map_err(|e| format!("Invalid path: {}", e))?;
+
+    match canonical.extension().and_then(|e| e.to_str()) {
         Some(ext) if ext.eq_ignore_ascii_case("md") || ext.eq_ignore_ascii_case("markdown") => {},
         _ => return Err("Not a markdown file".to_string()),
     }
-    std::fs::read_to_string(&path).map_err(|e| format!("Failed to read file: {}", e))
+
+    if let Some(parent) = canonical.parent() {
+        let scope = app.asset_protocol_scope();
+        let _ = scope.allow_directory(parent, true);
+    }
+
+    std::fs::read_to_string(&canonical).map_err(|e| format!("Failed to read file: {}", e))
 }
 
 #[tauri::command]

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useAppContext } from './contexts/AppContext';
 import { useFileOpen } from './hooks/useFileOpen';
 import { useTauriDragDrop } from './hooks/useTauriDragDrop';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useRecentFiles } from './hooks/useRecentFiles';
 import { Layout } from './components/Layout/Layout';
 import { WelcomeScreen } from './components/WelcomeScreen/WelcomeScreen';
@@ -14,6 +15,7 @@ export function AppContent() {
   // Activate hooks
   useFileOpen();
   useTauriDragDrop();
+  useKeyboardShortcuts();
 
   // Track filePath changes to add to recent files
   const prevFilePathRef = useRef<string | null>(null);

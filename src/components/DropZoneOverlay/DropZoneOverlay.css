@@ -23,17 +23,17 @@
   gap: 16px;
   padding: 48px 64px;
   background: rgba(255, 255, 255, 0.95);
-  border: 2px dashed #0969da;
+  border: 2px dashed var(--color-accent);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .dropzone-content svg {
-  color: #0969da;
+  color: var(--color-accent);
 }
 
 .dropzone-text {
   font-size: 16px;
   font-weight: 500;
-  color: #0969da;
+  color: var(--color-accent);
 }

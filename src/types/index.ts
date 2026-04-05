@@ -16,6 +16,7 @@ export interface AppState {
   recentFiles: string[];
   isDragOver: boolean;
   sidebarCollapsed: boolean;
+  fontSize: number;
 }
 
 export type AppAction =
@@ -28,4 +29,7 @@ export type AppAction =
   | { type: 'CLOSE_SEARCH' }
   | { type: 'SET_RECENT_FILES'; payload: string[] }
   | { type: 'SET_DRAG_OVER'; payload: boolean }
-  | { type: 'TOGGLE_SIDEBAR' };
+  | { type: 'TOGGLE_SIDEBAR' }
+  | { type: 'ZOOM_IN' }
+  | { type: 'ZOOM_OUT' }
+  | { type: 'ZOOM_RESET' };

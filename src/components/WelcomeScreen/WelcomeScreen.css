@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #ffffff;
+  background: var(--color-bg);
   padding: 32px;
 }
 
@@ -16,20 +16,20 @@
 }
 
 .welcome-logo {
-  color: #0969da;
+  color: var(--color-accent);
   margin-bottom: 16px;
 }
 
 .welcome-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1f2328;
+  color: var(--color-text);
   margin: 0 0 4px;
 }
 
 .welcome-subtitle {
   font-size: 14px;
-  color: #656d76;
+  color: var(--color-text-secondary);
   margin: 0 0 32px;
 }
 
@@ -37,8 +37,8 @@
   padding: 10px 24px;
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
-  background: #0969da;
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -46,17 +46,17 @@
 }
 
 .welcome-open-btn:hover {
-  background: #0860ca;
+  background: var(--color-accent-hover);
 }
 
 .welcome-open-btn:active {
-  background: #0550ae;
+  background: var(--color-accent-hover);
 }
 
 .welcome-hint {
   margin-top: 12px;
   font-size: 13px;
-  color: #8b949e;
+  color: var(--color-text-muted);
 }
 
 .welcome-recent {
@@ -67,7 +67,7 @@
 .welcome-recent-title {
   font-size: 12px;
   font-weight: 600;
-  color: #656d76;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0 0 12px;
@@ -94,12 +94,12 @@
 }
 
 .welcome-recent-item:hover {
-  background: #f6f8fa;
+  background: var(--color-bg-secondary);
 }
 
 .welcome-recent-item svg {
   flex-shrink: 0;
-  color: #656d76;
+  color: var(--color-text-secondary);
 }
 
 .welcome-recent-info {
@@ -112,7 +112,7 @@
 .welcome-recent-name {
   font-size: 14px;
   font-weight: 500;
-  color: #1f2328;
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -120,7 +120,7 @@
 
 .welcome-recent-path {
   font-size: 12px;
-  color: #8b949e;
+  color: var(--color-text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
